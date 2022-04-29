@@ -11,7 +11,7 @@ import (
 
 func Install(scheme *runtime.Scheme) {
 	utilruntime.Must(restaurant.AddToScheme(scheme))
-	utilruntime.Must(v1beta1.AddToScheme(scheme))
+	utilruntime.Must(v1alpha1.AddToScheme(scheme))
 	utilruntime.Must((v1beta1.AddToScheme(scheme)))
 	utilruntime.Must(scheme.SetVersionPriority(v1beta1.SchemeGroupVersion, v1alpha1.SchemeGroupVersion))
 }

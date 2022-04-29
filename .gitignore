@@ -1,3 +1,5 @@
 /vendor/
 /default.etcd/
 /.vscode/
+*.exe
+apiserver.local.config/
