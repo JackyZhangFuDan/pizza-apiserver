@@ -1,0 +1,6 @@
+apiVersion: autobusi.group.pizza.restaurant/v1alpha1
+kind: Topping
+metadata:
+  name: mozzarella
+spec:
+  cost: 1.0

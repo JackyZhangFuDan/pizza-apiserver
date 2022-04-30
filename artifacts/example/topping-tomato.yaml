@@ -1,0 +1,6 @@
+apiVersion: autobusi.group.pizza.restaurant/v1alpha1
+kind: Topping
+metadata:
+  name: tomato
+spec:
+  cost: 0.1

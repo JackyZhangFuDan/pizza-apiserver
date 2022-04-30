@@ -1,0 +1,8 @@
+apiVersion: autobusi.group.pizza.restaurant/v1alpha1
+kind: Pizza
+metadata:
+  name: margherita
+spec:
+  toppings:
+  - mozzarella
+  - tomato
