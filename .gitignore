@@ -2,4 +2,5 @@
 /default.etcd/
 /.vscode/
 *.exe
+pizza-apiserver
 apiserver.local.config/

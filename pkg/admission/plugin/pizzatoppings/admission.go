@@ -37,7 +37,7 @@ func (d *PizzaToppingsPlugin) Validate(ctx context.Context, a admission.Attribut
 		return admission.NewForbidden(a, fmt.Errorf("not yet ready to handle request"))
 	}
 
-	obj := a.GetOldObject()
+	obj := a.GetObject()
 	pizza := obj.(*restaurant.Pizza)
 	for _, top := range pizza.Spec.Toppings {
 		if _, err := d.toppingLister.Get(top.Name); err != nil && errors.IsNotFound(err) {

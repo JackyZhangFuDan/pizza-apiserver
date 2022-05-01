@@ -17,15 +17,9 @@ spec:
     spec:
       serviceAccountName: apiserver
       containers:
-      - name: apiserver
-        image: ...
+      - name: pizza-apiserver
+        image: docker.io/jackyzhangfd/kube-pizza-apiserver:0.0.1
         imagePullPolicy: Always
-        command: ["/pizza-apiserver"]
-        args:
-        - --etcd-servers=http://localhost:2379
-        - --cert-dir=/tmp/certs
-        - --secure-port=8443
-        - --v=4
+        args: ["--etcd-servers=http://localhost:2379"]
       - name: etcd
-        image: quay.io/coreos/etcd:v3.2.24
-        workingDir: /tmp
+        image: quay.io/coreos/etcd:v3.5.1
