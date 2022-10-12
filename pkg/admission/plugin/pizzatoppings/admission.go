@@ -20,14 +20,13 @@ func Register(plugins *admission.Plugins) {
 	})
 }
 
+// plugin必须实现admission.Interface接口，而内嵌的admission.Handler结构体就实现了
 type PizzaToppingsPlugin struct {
 	*admission.Handler
 	toppingLister listers.ToppingLister
 }
 
-var _ = custominitializer.WantsRestaurantInformerFactory(&PizzaToppingsPlugin{})
-var _ = admission.ValidationInterface(&PizzaToppingsPlugin{})
-
+// 有了validate方法就实现了admission.ValidationInterface，从而在validating阶段被调用
 func (d *PizzaToppingsPlugin) Validate(ctx context.Context, a admission.Attributes, _ admission.ObjectInterfaces) error {
 	if a.GetKind().GroupKind() != restaurant.Kind("Pizza") {
 		return nil
@@ -51,11 +50,15 @@ func (d *PizzaToppingsPlugin) Validate(ctx context.Context, a admission.Attribut
 	return nil
 }
 
+// 验证一下我们的plugin实现了我们自己定义的接收informer的哪个接口
+var _ = custominitializer.WantsRestaurantInformerFactory(&PizzaToppingsPlugin{})
+var _ = admission.ValidationInterface(&PizzaToppingsPlugin{})
+
+// 下面两个方法实现了WantsRestaurantInformerFactory接口，使得plugin接收我们的informer
 func (d *PizzaToppingsPlugin) SetRestaurantInformerFactory(f informers.SharedInformerFactory) {
 	d.toppingLister = f.Autobusi().V1alpha1().Toppings().Lister()
 	d.SetReadyFunc(f.Autobusi().V1alpha1().Toppings().Informer().HasSynced)
 }
-
 func (d *PizzaToppingsPlugin) ValidateInitialization() error {
 	if d.toppingLister == nil {
 		return fmt.Errorf("missing policy lister")
